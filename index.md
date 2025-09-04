@@ -8,7 +8,7 @@ Welcome to my ICS3U portfolio. I’ll use this site to post my work and reflecti
 - second page [Reflection #2](./posts/second.md)
 
 ## About me
-My name is Unubold Munkhbayar, I was born in Mongolia, and moved here when I was 4. My interests are the outdoors, going fishing, and playing video games with my friends. My goals are to have a basic understanding of coding which can asist me in other STEM courses, and help my work experience. 
+My name is Unubold Munkhbayar, I was born in Mongolia, and moved here when I was 4. My interests are the outdoors, going fishing, and playing video games with my friends. My goals are to have a basic understanding of coding which can assist me in other STEM courses, and help my work experience. 
 
 ---
 
