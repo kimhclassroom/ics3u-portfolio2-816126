@@ -1,4 +1,4 @@
- [Go Back](./posts/index.md)
+ [Go Back](/index.md)
 # First Reflection
 What I learned this week (bullets are fine, you may include an image):
 
