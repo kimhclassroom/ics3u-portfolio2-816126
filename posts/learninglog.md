@@ -1,2 +1,3 @@
- [Day 1]()
-  [Go Back](/index.md)
+ [Day 1](/day1)
+ 
+ [Go Back](/index.md)
