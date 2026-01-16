@@ -1,3 +1,3 @@
- [Day 1](/day1.md)
+ [Day 1](./posts/day1)
  
  [Go Back](/index.md)
