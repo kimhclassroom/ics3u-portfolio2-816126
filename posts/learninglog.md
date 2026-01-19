@@ -1,4 +1,4 @@
-Day 1 Learning Log [Go back](/index.md)
+Day 1 Learning Log [Go back](index.md)
 
 Variables 
 I used variables to track positions, movement speed, input states, game state, and vision cone size.
@@ -326,4 +326,4 @@ Challenges and how I fixed them
 Challenge: At first the player couldn’t pass through walls in certain directions, they could exit the map, and go up towards the HUD and off the map (Timer), after restarting the game, keys, positions, or screens could be stuck in the wrong state, and the player could move during menus.
 Fix: I made code for both directions of travel, used constrain and included the top HUD, used a restart method to reset all important variables (player position, teacher position, screen booleans, and movement booleans) so each run starts clean,  and added restrictions with booleans so movement only happens when gameStarted == true and the colour screen is not active
 
-[Go back](/index.md)
+[Go back](index.md)
