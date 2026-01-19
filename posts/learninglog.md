@@ -1,1 +1,102 @@
+Day 1 Learning Log 
+
+Variables 
+I used variables to track positions, movement speed, input states, game state, and vision cone size.
+
+
+int teacherX, teacherY;
+int playerX, playerY;
+int speed = 5;
+boolean gameStarted = false;
+boolean wDown, aDown, sDown, dDown;
+int coneRange = 200;
+int coneHalfWidth = 100; 
+Where I used it and why I did it this way
+teacherX teacherY store the teacher position so the teacher circle and vision cone always follow the same coordinates. playerX playerY store the player position so movement and drawing are consistent. speed is separate so I can change movement feel without rewriting movement logic.
+gameStarted separates the start screen from gameplay so the game does not run map and movement before the player clicks start. wDown aDown sDown dDown store which keys are currently held so movement stays smooth while a key is held and allows diagonal movement.
+coneRange and coneHalfWidth make the vision cone easy to tune for difficulty without changing triangle math.
+
+
+Challenges and how I fixed them
+Challenge: movement felt unreliable if I only used key presses.
+Fix: I tracked key states with booleans in keyPressed and keyReleased, then moved the player every frame inside movePlayer using those booleans.
+Challenge: player could move off screen.
+Fix: I added constrain after movement so playerX and playerY stay inside the window.
+Selection Structure If statements
+ I used selection structures to decide what screen to display, to handle button hover and clicks, and to handle movement direction.
+void draw() {
+  if (!gameStarted) {
+    drawStartScreen();
+  } else {
+    runGame();
+  }
+}
+Where I used it and why I did it this way
+In draw I used an if else to switch between start screen and gameplay. This solved the problem of the game running before the user starts.
+In drawStartScreen I used a hover boolean based on mouseX and mouseY to change button color. This gives the player feedback that the button is clickable.
+In movePlayer I used if statements to build dx and dy based on which keys are down. This is clean because multiple keys can be true at the same time.
+Challenges and how I fixed them
+Challenge: the start button sometimes felt like it did not respond.
+Fix: I made sure the same bx by bw bh values are used in both drawStartScreen and mousePressed so the visual button and clickable area match exactly.
+Challenge: diagonal movement could break if I used else if.
+Fix: I used separate if statements so W and D can both apply in the same frame.
+Loops
+I used a for loop to draw a temporary grid for debugging and alignment.
+void drawGridTEMP() {
+  for (int x = 0; x < 1500; x += 100) {
+   line(x, height, x, 0);
+    line(width, x, 0, x);
+  }
+}
+Where I used it and why I did it this way
+I call drawGridTEMP inside runGame so the grid appears while testing map layout.
+The loop repeats every 100 pixels and draws evenly spaced lines. This helped me place rooms and hallways accurately and check spacing quickly.
+
+
+Challenges and how I fixed them
+challenge: I could not tell if my rectangles were aligned or if gaps were the right size.
+Fix: I added the grid loop so I could visually verify distances and placement.
+Challenge: the grid made the game look messy.
+Fix: I kept it as a temporary method so I can remove or disable it later without touching the core gameplay code.
+Arrays and Data Structures 
+Concept I am adding next
+I will use arrays to store multiple possible key spawn locations so the key can spawn in random rooms but only in valid spots.
+Where I will use it and why I am implementing it this way
+I will call spawnKey when the game starts and when the game restarts.
+The arrays store many valid coordinates without writing separate variables for each room.
+Access is done using an index i, which makes the random selection simple and prevents impossible spawns like inside walls.
+
+
+Custom Functions and Error Checking Restrictions
+I wrote custom functions to organize the game and I included restrictions to prevent invalid movement and to control when gameplay runs.
+
+
+void movePlayer() {
+  int dx = 0;
+  int dy = 0;
+  if (aDown) dx -= speed;
+  if (dDown) dx += speed;
+  if (wDown) dy -= speed;
+  if (sDown) dy += speed;
+  playerX += dx;
+  playerY += dy;
+  playerX = constrain(playerX, 0, width - 25);
+  playerY = constrain(playerY, 0, height - 25);
+}
+Where I used it and why I did it this way
+I split tasks into functions so draw stays simple and I can test features one at a time.
+movePlayer handles all player movement logic in one place.
+drawStartScreen is separate so the UI does not mix with gameplay code.
+teacherDownCone uses teacherX and teacherY so the cone stays attached to the teacher.
+
+
+Error checking and restrictions in my code
+screen restriction game does not run until gameStarted is true.
+Movement restriction player cannot leave the screen.
+Input handling restriction keys set a boolean on press and clear on release so movement stops immediately when released.
+Challenges and how I fixed them
+Challenge: Code got confusing when everything was inside draw.
+Fix: I moved repeated tasks into custom functions like movePlayer and drawStartScreen so each method has one job.
+Challenge: Movement kept going after I let go of a key when I tested other approaches.
+Fix: I used keyPressed and keyReleased to keep the key states accurate.
 
