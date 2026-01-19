@@ -279,3 +279,49 @@ I used this in runGame(). The repetition is happening because draw() runs over a
 Challenges I faced and how I solved them
 Challenge: At first the teacher wouldn’t repeat the path properly and it would look like it was drifting or teleporting after a restart.
  Fix: I made sure the path always goes back to the exact same checkpoints using the same state order, and I reset all the teacher values in resetTeachers() so every run starts at the same position and state. 
+
+Day 5 Learning Log
+
+Arrays
+
+I added random key spawn positions. 
+
+void spawnKey() {
+  int i = int(random(keySpawnX.length)); //generates a random integer to use for the keySpawn index
+  keyX = keySpawnX[i]; //that integer genereated coresponds to a possible key spawn
+  keyY = keySpawnY[i];
+  hasKey = false; 
+}
+
+I used them to store the X, and Y values for the possible locations for the keys, one in each room, or two if the room is big enough. I will generate a random integer, which will then correspond to an array of the X, and Y, to choose a random spawn. This made it faster to manage, because I can change the spawn from one place, easier to add spawns, just be adding new values to the array, and supports randomness. 
+
+Challenges I faced and How I fixed them
+Arrays are simple and pretty straightforward, I did have to keep in mind that the X, and Y had to correspond correctly for the index value, that index values start at 0, and the random number must be an integer. 
+
+Error Checking and Restrictions
+
+I added wall collision and used constrain to keep the player within bounds of the intended playable area, and to overall keep the game running as intended.  
+
+void bottomLeftRoom() {
+  fill(150);
+  rect(0, 600, 200, 200);
+  fill(0, 255, 0);
+  rect(190, 650, 20, 50);
+  fill(150);
+
+  if (playerY > 600 && playerY < 800 && playerX == 200) {
+    if (playerY < 650 || playerY > 700) playerX = playerX + speed;
+  } else if (playerY > 600 && playerY < 800 && playerX + 25 == 200) {
+    if (playerY < 650 || playerY > 700) playerX = playerX - speed;
+  }
+
+  if (playerX >= 0 && playerX < 200 && playerY + 25 == 600) playerY = playerY - speed;
+  else if (playerX >= 0 && playerX < 200 && playerY == 600) playerY = playerY + speed;
+}
+
+I used it to keep the player on the map, and possibly make it unplayable. I used a screen boundary restriction using constrain so the player cannot leave the screen, room wall restriction so the player cannot walk through walls except at doorway gaps, start screen restriction so the player cannot move until the game starts, color screen restriction so the game doesn’t run while choosing a color, and a restart restriction so pressing R resets all important variables to avoid broken states.
+
+Challenges and how I fixed them
+
+Challenge: At first the player couldn’t pass through walls in certain directions, they could exit the map, and go up towards the HUD and off the map (Timer), after restarting the game, keys, positions, or screens could be stuck in the wrong state, and the player could move during menus.
+Fix: I made code for both directions of travel, used constrain and included the top HUD, used a restart method to reset all important variables (player position, teacher position, screen booleans, and movement booleans) so each run starts clean,  and added restrictions with booleans so movement only happens when gameStarted == true and the colour screen is not active
