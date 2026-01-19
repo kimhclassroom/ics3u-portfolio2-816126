@@ -1,4 +1,4 @@
-Day 1 Learning Log [Go back](index.md)
+Day 1 Learning Log [Go back](../index.md)
 
 Variables 
 I used variables to track positions, movement speed, input states, game state, and vision cone size.
