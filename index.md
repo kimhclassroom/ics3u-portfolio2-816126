@@ -3,4 +3,4 @@ Welcome to my ICS3U portfolio. I’ll use this site to post my work and reflecti
 
 ## Highlights
 - Final Culminating Project
-  📝 [Learning Logs](posts/learninglog.md)
+   [Learning Logs](posts/learninglog.md)
