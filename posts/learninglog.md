@@ -160,3 +160,95 @@ I separated the color screen into its own function so the UI code does not mix w
 Challenges and how I fixed them
 Challenge: I am still filling the player with a fixed color in drawPlayer.
 Fix: I will change drawPlayer to fill(playerColor) so the chosen color actually applies to the player, not just the preview circle.
+
+Day 3 Learning Log
+
+Selection Structure
+
+I added a restart game function, a color selection screen, and worked on room collision. 
+
+Restart game function 
+
+void keyPressed() {
+  if (key == 'r' || key == 'R') {
+    RestartGame();
+    return;
+  }
+
+void RestartGame() {
+  gameStarted = false;
+  colorScreen = false;
+
+  playerX = 100;
+  playerY = 500;
+
+  teacherX = 1200;
+  teacherY = 500;
+
+  playerColor = color(0, 120, 255);
+}
+
+Where I used it and why I did it that way
+
+I used it in keyPressed, where if the player pressed R it would run the function. I did it like this so the player could leave the game and go back to the start screen whenever they wanted. I used if statements to track if the r or capital R key was pressed, if it was it would run the restart function and return to stop the rest of the code from running. 
+
+Challenges I faced and how I solved them
+Challenge: Overall it was straightforward, but the first time I tried making this code i didnt use boolean values for the game states, which made it hard to switch between and control which was running.
+Fix: I fixed it by using boolean values to run if a certain value is true, or if it was set to true, this lets me easily control the game states, and what's running. 
+
+Color selection screen
+
+if (colorScreen) {
+    if (mouseX > backX && mouseX < backX + backW && mouseY > backY && mouseY < backY + backH) {
+      colorScreen = false;
+      return;
+    }
+    int radius = 100;
+    int gX = width/2 - 250;
+    int gY = height/2 + 50;
+    if (dist(mouseX, mouseY, gX, gY) < radius) playerColor = color(0, 255, 0);
+    int bX = width/2;
+    int bY = height/2 + 50;
+    if (dist(mouseX, mouseY, bX, bY) < radius) playerColor = color(0, 120, 255);
+    int pX = width/2 + 250;
+    int pY = height/2 + 50;
+    if (dist(mouseX, mouseY, pX, pY) < radius) playerColor = color(255, 105, 180);
+Where I used it and why I did it that way
+
+I used it to let the player control the color of the player to their preference. Also it updates what color the player should be to a variable which makes it easy to set multiple things like the preview on the start screen to that color. I used an if statement to track if the mouse is within a certain distance from a color circle, if it was and the mouse was pressed the playerColor value would update. 
+
+
+Challenges and how I fixed them
+
+Challenge: Getting the x and y values and typing it down was confusing and tedious.
+Fix: I made them into variables, and labeled them by color and if it was the x or the y position this made the code easier and simpler to read. 
+
+Room Collision 
+
+I added room collision for the bottom left room to prevent the player from going though the walls
+
+void bottomLeftRoom(){
+  if (playerY>600 && playerY<800 && playerX==200){
+    if (playerY + 25 < 650 || playerY > 700) {
+      playerX= playerX + speed;
+    }
+  } else if (playerY>600 && playerY<800 && playerX+25==200){
+    if (playerY + 25 < 650 || playerY > 700) {
+      playerX= playerX - speed;
+    }
+  }
+
+  if (playerX>=0 && playerX<200 && playerY+25==600){
+    playerY= playerY - speed;
+  } else if (playerX>=0 && playerX<200 && playerY==600){
+    playerY= playerY + speed;
+  }
+}
+
+Where I used it and why I did it that way
+
+I used it in the drawMap function so it would run if the map was drawn. I used if statements to track the players X and Y, and if it was between certain values and certain locations it would reserve the players speed to prevent them from going though the wall.
+
+Challenges and how I fixed them
+Challenges: The player's x and y speed would change at the same time, making the player go up and left, the player could exit from one way, but would stop going the other.
+Fix: I made separate if statements for the direction so the proper speed math would be used. I then further separated it so if the player came from any direction it would block it, accordingly. 
